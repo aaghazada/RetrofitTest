@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">API</string>
+    <string name="name_place_holder">name_place_holder</string>
+    <string name="phone_place_holder">phone_place_holder</string>
+</resources>
