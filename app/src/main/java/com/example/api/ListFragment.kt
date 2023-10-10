@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.api.data.model.UserModel
@@ -34,7 +35,7 @@ class ListFragment : Fragment() {
 
         userRecyclerView = binding.recyclerView
 
-        val cardAdapter = CardAdapter()
+        val cardAdapter = CardAdapter(arrayListOf())
         userRecyclerView.adapter = cardAdapter
 
         val apiService = RetrofitHelper.apiService
@@ -46,10 +47,11 @@ class ListFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val userList =
-                        response.body() // This will contain the list of UserModel objects
-                    // Handle the userList as needed
+                        response.body() ?: emptyList()
+                    cardAdapter.updateList(ArrayList(userList))
+
                 } else {
-                    // Handle the error
+                    Toast.makeText(requireContext(), "Error when enabling data ", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -60,3 +62,4 @@ class ListFragment : Fragment() {
     }
 
 }
+
