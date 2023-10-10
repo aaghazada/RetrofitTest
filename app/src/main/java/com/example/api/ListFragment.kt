@@ -46,8 +46,7 @@ class ListFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val userList =
-                        response.body() // This will contain the list of UserModel objects
-                    // Handle the userList as needed
+                        response.body() 
                 } else {
                     // Handle the error
                 }
