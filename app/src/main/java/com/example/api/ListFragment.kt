@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.api.data.model.UserModel
+import com.example.api.data.model.remote.UserModel
 import com.example.api.databinding.FragmentListBinding
 import com.example.api.helper.RetrofitHelper
 import com.example.api.ui.adapter.CardAdapter
@@ -33,8 +34,9 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userRecyclerView = binding.recyclerView
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val cardAdapter = CardAdapter()
+        val cardAdapter = CardAdapter(arrayListOf()) //error may be here
         userRecyclerView.adapter = cardAdapter
 
         val apiService = RetrofitHelper.apiService
@@ -45,16 +47,15 @@ class ListFragment : Fragment() {
                 response: Response<List<UserModel>>
             ) {
                 if (response.isSuccessful) {
-                    val userList =
-                        response.body() // This will contain the list of UserModel objects
-                    // Handle the userList as needed
+                    val userList = response.body()
+                    userList?.let { cardAdapter.updateList(it) } // error may be here
                 } else {
                     // Handle the error
                 }
             }
 
             override fun onFailure(call: Call<List<UserModel>>, t: Throwable) {
-                // Handle the network call failure
+                t.printStackTrace()
             }
         })
     }

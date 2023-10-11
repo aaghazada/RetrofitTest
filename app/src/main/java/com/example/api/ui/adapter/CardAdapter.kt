@@ -3,7 +3,7 @@ package com.example.api.ui.adapter
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.api.data.model.UserModel
+import com.example.api.data.model.remote.UserModel
 
 class CardAdapter(
     private val userList: ArrayList<UserModel>
@@ -19,7 +19,7 @@ class CardAdapter(
         holder.bindUser(item)
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(newList: ArrayList<UserModel>) {
+    fun updateList(newList: List<UserModel>) {
         userList.clear()
         userList.addAll(newList)
         notifyDataSetChanged()

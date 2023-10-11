@@ -1,4 +1,7 @@
-package com.example.api.data.model
+package com.example.api.data.model.remote
+
+import com.example.api.data.model.remote.AddressResponseModel
+import com.example.api.data.model.remote.CompanyResponseModel
 
 data class UserModel(
     val id: Int,
