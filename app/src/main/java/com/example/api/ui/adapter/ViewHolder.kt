@@ -15,9 +15,15 @@ class ViewHolder(
     )
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bindUser(
-        userModel: UserModel
+        userModel: UserModel,
+        navigateFunction: (title: Int) -> Unit
     ) {
         binding.name.text = userModel.name
         binding.phone.text = userModel.phone
+
+        binding.cardViewClick.setOnClickListener {
+            navigateFunction(userModel.id)
+        }
+
     }
 }

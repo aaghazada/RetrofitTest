@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.api.data.model.remote.UserModel
@@ -36,7 +40,9 @@ class ListFragment : Fragment() {
         userRecyclerView = binding.recyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val cardAdapter = CardAdapter(arrayListOf()) //error may be here
+        val cardAdapter = CardAdapter(arrayListOf()) {
+            navigate(it)
+        }
         userRecyclerView.adapter = cardAdapter
 
         val apiService = RetrofitHelper.apiService
@@ -58,6 +64,11 @@ class ListFragment : Fragment() {
                 t.printStackTrace()
             }
         })
+
     }
 
+    private fun navigate(id: Int) {
+        val navController = findNavController()
+        navController.navigate(R.id.action_listFragment_to_detailedFragment, bundleOf("id" to id))
+    }
 }
