@@ -9,7 +9,7 @@ interface ApiService {
     @GET("users")
     fun getUsers(): Call<List<UserModel>>
 
-    @GET("users/{userId}")
-    fun getUsersId(@Path("userId") userId: String): Call<UserModel>
+//    @GET("users/{userId}")
+//    fun getUsersId(@Path("userId") userId: String): Call<UserModel>
 
 }
